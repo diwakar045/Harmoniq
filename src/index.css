@@ -1,0 +1,121 @@
+:root {
+  /* Common variables */
+  --primary: #FFA14F;
+  --primary-glow: rgba(255, 161, 79, 0.4);
+  --accent: #FFA14F;
+  --secondary: #8b5cf6;
+  --border-radius-lg: 24px;
+  --border-radius-md: 16px;
+  --transition-speed: 0.3s;
+  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+}
+
+/* Classic Mode (Indian Flat Theme) */
+[data-theme='classic'] {
+  --bg-dark: #7A1F1E;
+  --bg-panel: #8F2B2A;
+  --bg-sidebar: #691717;
+  --text-main: #E8DCC4;
+  --text-dim: #D1C2A5;
+  --text-muted: #B3A48C;
+  --primary: #ffeec4;
+  --primary-glow: none;
+  --accent: #F5EBDD;
+  --key-white: #7A1F1E;
+  --key-white-active: #661817;
+  --key-black: #E8DCC4;
+  --key-black-active: #D1C2A5;
+  --key-blur: none;
+  --key-stroke: #E8DCC4;
+  --key-white-border-top: none;
+  --key-white-border-left: 1px solid #E8DCC4;
+  --key-black-border: 1px solid #E8DCC4;
+  --key-black-border-top: none;
+  --key-black-border-left: none;
+  --key-glow-white: none;
+  --bg-gradient: var(--bg-dark);
+  --panel-shadow: none;
+  --border-color: transparent;
+  --key-shadow: none;
+  --piano-base: transparent;
+  --piano-texture: none;
+  --item-bg: rgba(232, 220, 196, 0.1);
+  --panel-text: #7A1F1E;
+  --panel-text-dim: rgba(122, 31, 30, 0.7);
+  --panel-item-bg: rgba(122, 31, 30, 0.08);
+  --panel-item-hover: rgba(122, 31, 30, 0.15);
+}
+
+/* Classic Overrides - Enforcement of flat, unrounded DESIGN FOR KEYS ONLY */
+[data-theme='classic'] .piano-key {
+  border-radius: 0 !important;
+}
+
+/* Minimal Mode */
+[data-theme='minimal'] {
+  --bg-dark: #ffffff;
+  --bg-panel: #ffffff;
+  --bg-sidebar: #f1f3f5;
+  --text-main: #1a1a1a;
+  --text-dim: #495057;
+  --text-muted: #adb5bd;
+  --key-white: #ffffff;
+  --key-white-active: #f1f3f5;
+  --key-black: #212529;
+  --key-black-active: #343a40;
+  --key-blur: none;
+  --key-stroke: rgba(0, 0, 0, 0.15);
+  --key-white-border-top: none;
+  --key-white-border-left: 1px solid rgba(0, 0, 0, 0.15);
+  --key-black-border: 1px solid #000;
+  --key-black-border-top: 1px solid #000;
+  --key-black-border-left: 1px solid #000;
+  --key-glow-white: none;
+  --bg-gradient: var(--bg-dark);
+  --panel-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --border-color: rgba(0, 0, 0, 0.05);
+  --key-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --piano-base: #e2e2e2;
+  --piano-texture: none;
+  --item-bg: rgba(0, 0, 0, 0.03);
+  --panel-text: #f2f2f2;
+  --panel-text-dim: rgba(255, 255, 255, 0.6);
+  --panel-item-bg: rgba(255, 255, 255, 0.05);
+  --panel-item-hover: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+.numeric-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
