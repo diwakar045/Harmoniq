@@ -218,7 +218,10 @@ function App() {
             height: '43px',
             paddingTop: '12px',
           }}>
-            <HarmoniqLogoClassic fill={theme === 'classic' ? 'var(--cream)' : (theme === 'dark' ? '#ffffff' : '#000000')} />
+            <h1 style={{ margin: 0, padding: 0, display: 'flex', alignItems: 'center' }}>
+              <span style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: 0 }}>Harmoniq - Virtual Harmonium & Piano Simulator</span>
+              <HarmoniqLogoClassic fill={theme === 'classic' ? 'var(--cream)' : (theme === 'dark' ? '#ffffff' : '#000000')} />
+            </h1>
           </div>
 
           {/* Profile Section */}
