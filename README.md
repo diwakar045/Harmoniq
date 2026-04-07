@@ -2,7 +2,8 @@
 
 **Harmoniq** is a premium, dual-mode virtual instrument built with React, Vite, and Firebase. It features a modern, glassmorphic **Piano** and a rich, traditional **Indian Harmonium** with authentic synthesis.
 
-![Harmoniq Banner](https://images.unsplash.com/photo-1552422535-c45813c61732?auto=format&fit=crop&q=80&w=2070)
+<img width="1744" height="901" alt="image" src="https://github.com/user-attachments/assets/77c96806-3f09-4898-9166-a68de1315aa8" />
+
 
 ## ✨ Features
 
