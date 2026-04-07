@@ -12,7 +12,7 @@ import PlaybackTimeline from './components/PlaybackTimeline';
 import { useAuth } from './context/AuthContext';
 import { useAudio } from './hooks/useAudio';
 import { useRecorder } from './hooks/useRecorder';
-import { KEYBOARD_MAP, getFrequency, HARMONIUM_MAP } from './utils/noteUtils';
+import { getFrequency, HARMONIUM_MAP } from './utils/noteUtils';
 import HarmoniumLayout from './components/HarmoniumLayout';
 import { HarmoniqLogoClassic } from './components/ClassicSVGs';
 
@@ -194,53 +194,16 @@ function App() {
 
       {/* Main Mode Swapper */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', transition: 'all var(--transition-speed)' }}>
-      {theme === 'classic' ? (
-        <div style={{
-          width: '1440px',
-          height: '781px',
-          position: 'relative',
-          margin: 'auto',
-          transformOrigin: 'top center',
-          transform: 'scale(1)',
-          fontFamily: "'DM Sans', sans-serif"
-        }}>
-          {activeRecordingId && currentRecording && (
-              <div style={{ 
-                position: 'absolute', 
-                top: '160px', 
-                left: '50%', 
-                transform: 'translateX(-50%)', 
-                width: '800px', 
-                display: 'flex',
-                justifyContent: 'center',
-                zIndex: 100 
-              }}>
-                <PlaybackTimeline currentTime={playbackTime} duration={currentRecording.duration} onSeek={seekTo} isPaused={isPlaybackPaused} recordingName={currentRecording.name} onPlayPause={() => playRecording(currentRecording)} onStop={stopPlayback} theme={theme} />
-              </div>
-          )}
-          <div className="top-border"></div>
-          <div className="top-bar">
-            <div className="logo"><HarmoniqLogoClassic /></div>
-            <ProfileHeader
-              user={user}
-              logout={logout}
-              theme={theme}
-              onAuthClick={() => setIsAuthModalOpen(true)}
-            />
-          </div>
-          <HarmoniumLayout activeNotes={activeNotes} onPlay={playNote} onStop={stopNote} />
-        </div>
-      ) : (
-      <>
-
-        {/* Top Bar - Logo and Profile, aligned with Piano Width */}
+        
+        {/* Unified Top Bar - Logo and Profile */}
         <div style={{
           position: 'absolute',
           top: '40px',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '1248px',
+          width: '100%',
           maxWidth: '1248px',
+          padding: '0 2rem',
           padding: '0',
           zIndex: 10,
           display: 'flex',
@@ -255,7 +218,7 @@ function App() {
             height: '43px',
             paddingTop: '12px',
           }}>
-            <HarmoniqLogoClassic fill={theme === 'dark' ? '#ffffff' : '#000000'} />
+            <HarmoniqLogoClassic fill={theme === 'classic' ? 'var(--cream)' : (theme === 'dark' ? '#ffffff' : '#000000')} />
           </div>
 
           {/* Profile Section */}
@@ -266,6 +229,37 @@ function App() {
             onAuthClick={() => setIsAuthModalOpen(true)}
           />
         </div>
+
+      {theme === 'classic' ? (
+        <div style={{
+          width: '100%',
+          maxWidth: '1440px',
+          height: '781px',
+          position: 'relative',
+          margin: '0 auto',
+          transformOrigin: 'top center',
+          transform: 'scale(1)',
+          fontFamily: "'DM Sans', sans-serif"
+        }}>
+          {activeRecordingId && currentRecording && (
+              <div style={{ 
+                position: 'absolute', 
+                top: '100px', 
+                left: '50%', 
+                transform: 'translateX(-50%)', 
+                width: '800px', 
+                display: 'flex',
+                justifyContent: 'center',
+                zIndex: 100 
+              }}>
+                <PlaybackTimeline currentTime={playbackTime} duration={currentRecording.duration} onSeek={seekTo} isPaused={isPlaybackPaused} recordingName={currentRecording.name} onPlayPause={() => playRecording(currentRecording)} onStop={stopPlayback} theme={theme} />
+              </div>
+          )}
+          <div className="top-border"></div>
+          <HarmoniumLayout activeNotes={activeNotes} onPlay={playNote} onStop={stopNote} />
+        </div>
+      ) : (
+      <>
 
 
 
@@ -332,6 +326,7 @@ function App() {
                 onStop={stopNote}
                 startNote="C4"
                 endNote="B5"
+                theme={theme}
               />
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { getNoteType } from '../utils/noteUtils';
 
-const PianoKey = ({ note, label, isActive, onPlay, onStop }) => {
+const PianoKey = ({ note, label, isActive, onPlay, onStop, showNoteNames = true }) => {
     const type = getNoteType(note);
 
     // Handlers for mouse/touch interaction
@@ -105,16 +105,19 @@ const PianoKey = ({ note, label, isActive, onPlay, onStop }) => {
                 gap: '2px',
                 pointerEvents: 'none'
             }}>
+                {showNoteNames && (
+                    <span style={{
+                        fontSize: '1rem',
+                        color: type === 'white' ? 'var(--text-dim)' : '#fff',
+                        fontWeight: type === 'white' ? '800' : '600'
+                    }}>
+                        {note.replace(/\d+/, '')}
+                    </span>
+                )}
                 <span style={{
-                    fontSize: '1rem',
-                    color: type === 'white' ? 'var(--text-dim)' : '#fff',
-                    fontWeight: type === 'white' ? '800' : '600'
-                }}>
-                    {note.replace(/\d+/, '')}
-                </span>
-                <span style={{
-                    fontSize: '0.75rem',
-                    color: type === 'white' ? '#999' : '#888',
+                    fontSize: '1.1rem',
+                    color: type === 'white' ? '#555' : '#ccc',
+                    fontWeight: '700',
                     textTransform: 'uppercase'
                 }}>
                     {label}

@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import PianoKey from './PianoKey';
-import { getNotesBetween, getNoteType, HARMONIUM_MAP } from '../utils/noteUtils';
+import { getNotesBetween, getNoteType, HARMONIUM_MAP, HARMONIUM_BLACK_KEYS } from '../utils/noteUtils';
 
-const Keyboard = ({ startNote = 'C3', endNote = 'E5', activeNotes, onPlay, onStop }) => {
+const Keyboard = ({ startNote = 'C4', endNote = 'B5', activeNotes, onPlay, onStop, theme = 'classic' }) => {
     const notes = useMemo(() => getNotesBetween(startNote, endNote), [startNote, endNote]);
+    const isMinimal = theme === 'minimal';
 
-    // Create a map for Key Labels (Computer Keyboard)
+    // Create a map for Key Labels (Unified)
     const keyLabels = useMemo(() => {
         const map = {};
         Object.entries(HARMONIUM_MAP).forEach(([k, v]) => {
@@ -14,22 +15,13 @@ const Keyboard = ({ startNote = 'C3', endNote = 'E5', activeNotes, onPlay, onSto
         return map;
     }, []);
 
-    // Filter notes into whites and blacks for rendering strategy
-    // We render a container. 
-    // White keys are static relative.
-    // Black keys are absolute, positioned based on the index of the preceding white key.
-
-    // List of notes is used to render the keys in order.
-
     return (
         <div className="keyboard" style={{
             display: 'flex',
             position: 'relative',
-            padding: '1.2rem 2.5rem',
+            padding: isMinimal ? '1.25rem 2rem' : '1.25rem 2.5rem',
             backgroundColor: 'var(--bg-panel)',
             borderRadius: 'var(--border-radius)',
-            boxShadow: 'var(--panel-shadow)',
-            marginTop: '2rem',
             transition: 'all var(--transition-speed)'
         }}>
             {notes.map((note) => {
@@ -47,28 +39,33 @@ const Keyboard = ({ startNote = 'C3', endNote = 'E5', activeNotes, onPlay, onSto
                                 isActive={isActive}
                                 onPlay={onPlay}
                                 onStop={onStop}
+                                showNoteNames={!isMinimal}
                             />
                         </div>
                     );
                 } else {
-                    // Black key
-                    // It should be positioned relative to the previous white key?
-                    // Actually, if we put black keys inside the previous white key's div, z-ordering is easy?
-                    // Or just render it absolutely.
-                    // Since we are iterating:
-                    // A black key always follows a white key (except maybe if starting on black, but typically we start C).
-                    // If we are mapping, we can return the black key adjacent to the previous white one.
+                    // Black key logic: Filter and Nudge (Piano Mode Refinements)
+                    if (!HARMONIUM_BLACK_KEYS.includes(note)) return null;
 
-                    // Better: The black key belongs "between" this slot and the next?
-                    // Note: "C" is white. "C#" comes next.
-                    // If I render C# absolutely inside the specific spot, I need to know where.
-
-                    // Let's use the fact that I'm iterating. I can't easily nest "C#" inside "C" without reshaping data.
-                    // BUT, I can render it as a 0-width element that overflows?
+                    // Custom Grouping Logic
+                    let offset = '-1.2rem'; // Default centered
+                    
+                    if (isMinimal) {
+                        if (note === 'C#5' || note === 'D#5' || note === 'G#5' || note === 'A#5') {
+                            // Move 7, 8, -, and = left by exactly 1 white key (4.8rem)
+                            offset = '-6.0rem';
+                        } else if (note === 'F#5') {
+                            // Move 9 left by exactly 2 white keys (9.6rem) to sit between i and o
+                            offset = '-10.8rem';
+                        }
+                    } else if (note === 'F#5') {
+                        // Original Harmonium nudging for Classic theme
+                        offset = '-3.85rem';
+                    }
 
                     return (
                         <div key={note} style={{ width: 0, position: 'relative', zIndex: 10 }}>
-                            <div style={{ position: 'absolute', left: '-1.2rem' }}>
+                            <div style={{ position: 'absolute', left: offset }}>
                                 <PianoKey
                                     note={note}
                                     type="black"
@@ -76,6 +73,7 @@ const Keyboard = ({ startNote = 'C3', endNote = 'E5', activeNotes, onPlay, onSto
                                     isActive={isActive}
                                     onPlay={onPlay}
                                     onStop={onStop}
+                                    showNoteNames={!isMinimal}
                                 />
                             </div>
                         </div>

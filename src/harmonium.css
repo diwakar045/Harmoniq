@@ -36,23 +36,6 @@ body[data-theme='classic'],
   background: transparent;
 }
 
-[data-theme='classic'] .top-bar {
-  position: absolute;
-  top: 40px;
-  left: 96px;
-  width: 1248px;
-  height: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-[data-theme='classic'] .logo {
-  display: flex;
-  align-items: center;
-  height: 43px;
-  padding-top: 12px;
-}
 
 [data-theme='classic'] .profile-pill {
   width: 43px;
@@ -78,9 +61,11 @@ body[data-theme='classic'],
 
 [data-theme='classic'] .harmonium-wrap {
   position: absolute;
-  top: 212px;
-  left: 192px;
+    top: 232px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 1056px;
+  max-width: 95vw;
   height: 266px;
 }
 

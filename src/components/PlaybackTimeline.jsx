@@ -21,7 +21,7 @@ const PlaybackTimeline = ({ currentTime, duration, onSeek, isPaused, recordingNa
             padding: '1.2rem 2rem',
             borderRadius: isClassic ? '8px' : '24px',
             border: isClassic ? '1px solid rgba(255,238,196,0.44)' : '1px solid var(--border-color)',
-            boxShadow: isClassic ? '0 25px 50px -12px rgba(0, 0, 0, 0.8)' : 'var(--panel-shadow)',
+            boxShadow: isClassic ? '0 15px 40px -10px rgba(0, 0, 0, 0.45)' : 'var(--panel-shadow)',
             display: 'flex',
             alignItems: 'center',
             gap: '1.5rem',

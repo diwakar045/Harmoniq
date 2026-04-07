@@ -43,16 +43,9 @@ export function getNotesBetween(startNote, endNote) {
 }
 
 /**
- * Map computer keyboard keys to piano notes.
- * Covering range from C3 to E5 approx.
+ * Mapping for the Harmonium layout (The row of letters and numbers).
+ * This is now the unified mapping for all keyboard views.
  */
-export const KEYBOARD_MAP = {
-    // Lower octave (starting Z -> C3)
-    'z': 'C3', 's': 'C#3', 'x': 'D3', 'd': 'D#3', 'c': 'E3', 'v': 'F3', 'g': 'F#3', 'b': 'G3', 'h': 'G#3', 'n': 'A3', 'j': 'A#3', 'm': 'B3',
-    // Upper octave (starting Q -> C4)
-    'q': 'C4', '2': 'C#4', 'w': 'D4', '3': 'D#4', 'e': 'E4', 'r': 'F4', '5': 'F#4', 't': 'G4', '6': 'G#4', 'y': 'A4', '7': 'A#4', 'u': 'B4', 'i': 'C5', '9': 'C#5', 'o': 'D5', '0': 'D#5', 'p': 'E5'
-};
-
 export const HARMONIUM_MAP = {
     '`': 'C4', 'q': 'D4', 'w': 'E4', 'e': 'F4', 'r': 'G4',
     't': 'A4', 'y': 'B4', 'u': 'C5', 'i': 'D5', 'o': 'E5',
@@ -60,6 +53,17 @@ export const HARMONIUM_MAP = {
     '1': 'C#4', '2': 'D#4', '4': 'F#4', '5': 'G#4', '6': 'A#4',
     '7': 'C#5', '8': 'D#5', '9': 'F#5', '-': 'G#5', '=': 'A#5'
 };
+
+/**
+ * These are the black keys specifically rendered in the HarmoniumLayout.
+ * They follow a specific 2-2-3-2 grouping pattern (Missing A#4, grouping D#5-F#5).
+ */
+export const HARMONIUM_BLACK_KEYS = [
+    'C#4', 'D#4', // Group 1 (2)
+    'F#4', 'G#4', // Group 2 (2)
+    'C#5', 'D#5', 'F#5', // Group 3 (3)
+    'G#5', 'A#5' // Group 4 (2)
+];
 
 export const getNoteType = (note) => {
     return note.includes('#') ? 'black' : 'white';
